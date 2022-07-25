@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include <fstream>
+#include <corecrt_math_defines.h>
+#include <math.h>
 enum type{rect,cir};
 struct rectangle
 {
@@ -53,3 +55,6 @@ void writeList(list*& readList, std::ofstream& stream);
 void writeElement(element*& readElement, std::ofstream& stream);
 void writeRectangle(rectangle* rect, std::ofstream& stream);
 void writeCircle(circle* cir, std::ofstream& stream);
+double perimetr(element* el);
+int equ(element* first, element* second);
+list* sort(list* sortingList);
