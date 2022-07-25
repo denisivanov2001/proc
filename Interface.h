@@ -53,3 +53,5 @@ void writeElement(element*& readElement, std::ofstream& stream);
 void writeRectangle(rectangle* rect, std::ofstream& stream);
 void writeCircle(circle* cir, std::ofstream& stream);
 double perimetr(element* el);
+int equ(element* first, element* second);
+list* sort(list* sortingList);

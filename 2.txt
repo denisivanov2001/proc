@@ -16,5 +16,23 @@ Perimetr 0
 Radius 0
 Color Green
 Perimetr 0
+Sorted:
+Num 4
+0: Left up x: 9 Left up y: 9
+Right down x: 9 Right down y: 9
+Color Yellow
+Perimetr 0
+1: Center: 9 9
+Radius 0
+Color Green
+Perimetr 0
+2: Left up x: 8 Left up y: -9
+Right down x: 3 Right down y: 5
+Color Red
+Perimetr 70
+3: Center: 9 6
+Radius 78
+Color Blue
+Perimetr 490.088
 Delete list:
 Num 0

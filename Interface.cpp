@@ -176,3 +176,41 @@ double perimetr(element* el)
 	}
 	return -1;
 }
+
+int equ(element* first, element* second)
+{
+	if (perimetr(first) > perimetr(second))
+		return 1;
+	else if (perimetr(first) < perimetr(second))
+		return -1;
+	else
+		return 0;
+}
+
+list* sort(list* sortingList)
+{
+	list* newList = new list;
+	init(newList);
+while(sortingList->size!=0)
+	{
+		element* min = sortingList->head;
+		element* cur = sortingList->head;
+		while (cur!=nullptr)
+		{
+			if (equ(cur, min) == -1)
+				min = cur;
+			cur = cur->next;
+		}
+		if(min->prev!=nullptr)
+		min->prev->next = min->next;
+		if(min->next!=nullptr)
+		min->next->prev = min->prev;
+		if (min == sortingList->head)
+			sortingList->head = min->next;
+		if (min == sortingList->tail)
+			sortingList->tail = min->prev;
+		sortingList->size--;
+		pushBack(newList, min);
+	}
+	return newList;
+}
