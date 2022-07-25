@@ -235,7 +235,7 @@ double perimetr(element* el)
 	{
 	case rect:
 	{
-		return 2-((((rectangle*)el->itFigure)->leftUp[0] - ((rectangle*)el->itFigure)->rightDown[0]) +
+		return 2*((((rectangle*)el->itFigure)->leftUp[0] - ((rectangle*)el->itFigure)->rightDown[0]) +
 			(((rectangle*)el->itFigure)->rightDown[1] - ((rectangle*)el->itFigure)->leftUp[1]));
 
 	}
