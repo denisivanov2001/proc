@@ -13,9 +13,10 @@ int main()
 	readList(clientList, read);
 	write << "List:\n";
 	writeList(clientList, write);
-	clientList = sort(clientList);
-	write << "Sorted:\n";
-	writeList(clientList, write);
+	write << "Rectangle:\n";
+	writeRect(clientList, write);
+	write << "Circle:\n";
+	writeCir(clientList, write);
 	write << "Delete list:\n";
 	clear(clientList);
 	writeList(clientList, write);
