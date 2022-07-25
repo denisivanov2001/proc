@@ -123,6 +123,29 @@ void writeList(list*& writeList, std::ofstream& stream)
 	}
 }
 
+void writeRect(list*& writeList, std::ofstream& stream)
+{
+	
+	auto curEl = writeList->head;
+	for (int i = 0; i < writeList->size; i++)
+	{
+		if(curEl->itFigure->key==rect)
+		writeElement(curEl, stream);
+		curEl = curEl->next;
+	}
+}
+
+void writeCir(list*& writeList, std::ofstream& stream)
+{
+	auto curEl = writeList->head;
+	for (int i = 0; i < writeList->size; i++)
+	{
+		if (curEl->itFigure->key == cir)
+			writeElement(curEl, stream);
+		curEl = curEl->next;
+	}
+}
+
 void writeElement(element*& writeElement, std::ofstream& stream)
 {
 	switch (writeElement->itFigure->key)
@@ -142,10 +165,13 @@ void writeElement(element*& writeElement, std::ofstream& stream)
 		break;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
 	
 =======
 	stream << "Perimetr " << perimetr(writeElement)<<"\n";
 >>>>>>> sort
+=======
+>>>>>>> ignore
 	return;
 }
 
@@ -165,62 +191,4 @@ void writeCircle(circle* cir, std::ofstream& stream)
 	stream << "Color " << cir->color << "\n";
 
 	stream << "Density " << cir->density << "\n";
-}
-
-double perimetr(element* el)
-{
-	switch (el->itFigure->key)
-	{
-	case rect:
-	{
-		return (((rectangle*)el->itFigure)->leftUp[0] - ((rectangle*)el->itFigure)->rightDown[0]) *
-			(((rectangle*)el->itFigure)->rightDown[1] - ((rectangle*)el->itFigure)->leftUp[1]);
-		
-	}
-	case cir:
-	{
-		return 2.0 * M_PI * (double)((circle*)el->itFigure)->radius;
-	}
-	default:
-		break;
-	}
-	return -1;
-}
-
-int equ(element* first, element* second)
-{
-	if (perimetr(first) > perimetr(second))
-		return 1;
-	else if (perimetr(first) < perimetr(second))
-		return -1;
-	else
-		return 0;
-}
-
-list* sort(list* sortingList)
-{
-	list* newList = new list;
-	init(newList);
-while(sortingList->size!=0)
-	{
-		element* min = sortingList->head;
-		element* cur = sortingList->head;
-		while (cur!=nullptr)
-		{
-			if (equ(cur, min) == -1)
-				min = cur;
-			cur = cur->next;
-		}
-		if(min->prev!=nullptr)
-		min->prev->next = min->next;
-		if(min->next!=nullptr)
-		min->next->prev = min->prev;
-		if (min == sortingList->head)
-			sortingList->head = min->next;
-		if (min == sortingList->tail)
-			sortingList->tail = min->prev;
-		sortingList->size--;
-		pushBack(newList, min);
-	}
-	return newList;
 }
