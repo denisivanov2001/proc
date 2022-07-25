@@ -1,0 +1,16 @@
+List:
+Num 4
+0: Left up x: 3 Left up y: -9
+Right down x: 8 Right down y: 5
+Color Red
+1: Center: 9 6
+Radius 78
+Color Blue
+2: Left up x: 9 Left up y: 9
+Right down x: 9 Right down y: 9
+Color Yellow
+3: Center: 9 9
+Radius 0
+Color Green
+Delete list:
+Num 0
