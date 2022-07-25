@@ -84,6 +84,12 @@ int readElement(element*& readElement, std::ifstream& stream)
 		stream >> ((circle*)readElement->itFigure)->density;
 		return 1;
 	}
+	case 't':
+	{
+		readElement->itFigure = (figure*)readTriangle(stream);
+		stream >> ((triangle*)readElement->itFigure)->color;
+		return 1;
+	}
 	default:
 		break;
 	}
@@ -110,6 +116,18 @@ circle* readCircle(std::ifstream& stream)
 	stream >> newCir->radius;
 	return newCir;
 }
+triangle* readTriangle(std::ifstream& stream)
+{
+	triangle* newTri = new triangle();
+	newTri->key = tri;
+	stream >> newTri->first[0];
+	stream >> newTri->first[1];
+	stream >> newTri->second[0];
+	stream >> newTri->second[1];
+	stream >> newTri->third[0];
+	stream >> newTri->third[1];
+	return newTri;
+}
 
 void writeList(list*& writeList, std::ofstream& stream)
 {
@@ -131,6 +149,17 @@ void writeRect(list*& writeList, std::ofstream& stream)
 	{
 		if(curEl->itFigure->key==rect)
 		writeElement(curEl, stream);
+		curEl = curEl->next;
+	}
+}
+void writeTri(list*& writeList, std::ofstream& stream)
+{
+
+	auto curEl = writeList->head;
+	for (int i = 0; i < writeList->size; i++)
+	{
+		if (curEl->itFigure->key == tri)
+			writeElement(curEl, stream);
 		curEl = curEl->next;
 	}
 }
@@ -161,17 +190,17 @@ void writeElement(element*& writeElement, std::ofstream& stream)
 		writeCircle((circle*)writeElement->itFigure, stream);
 		break;
 	}
+	case tri:
+	{
+		writeTriangle((triangle*)writeElement->itFigure, stream);
+		break;
+	}
 	default:
 		break;
 	}
-<<<<<<< HEAD
-<<<<<<< HEAD
-	
-=======
+
 	stream << "Perimetr " << perimetr(writeElement)<<"\n";
->>>>>>> sort
-=======
->>>>>>> ignore
+
 	return;
 }
 
@@ -191,4 +220,80 @@ void writeCircle(circle* cir, std::ofstream& stream)
 	stream << "Color " << cir->color << "\n";
 
 	stream << "Density " << cir->density << "\n";
+}
+void writeTriangle(triangle* tri, std::ofstream& stream)
+{
+	stream << "First " << tri->first[0] << " " << tri->first[1] << "\n";
+	stream << "Second " << tri->second[0] << " " << tri->second[1] << "\n";
+	stream << "Third " << tri->third[0] << " " << tri->third[1] << "\n";
+	stream << "Color " << tri->color << "\n";
+	stream << "Density " << tri->density << "\n";
+}
+double perimetr(element* el)
+{
+	switch (el->itFigure->key)
+	{
+	case rect:
+	{
+		return 2-((((rectangle*)el->itFigure)->leftUp[0] - ((rectangle*)el->itFigure)->rightDown[0]) +
+			(((rectangle*)el->itFigure)->rightDown[1] - ((rectangle*)el->itFigure)->leftUp[1]));
+
+	}
+	case cir:
+	{
+		return 2.0 * M_PI * (double)((circle*)el->itFigure)->radius;
+	}
+	case tri:
+	{
+		double firstShade, secondShade, thirdShade;
+		firstShade = sqrt((pow(((triangle*)el->itFigure)->first[0] - ((triangle*)el->itFigure)->second[0], 2) 
+			+ pow(((triangle*)el->itFigure)->first[1] - ((triangle*)el->itFigure)->second[1], 2)));
+		secondShade = sqrt((pow(((triangle*)el->itFigure)->first[0] - ((triangle*)el->itFigure)->third[0], 2)
+			+ pow(((triangle*)el->itFigure)->first[1] - ((triangle*)el->itFigure)->third[1], 2)));
+		thirdShade = sqrt((pow(((triangle*)el->itFigure)->third[0] - ((triangle*)el->itFigure)->second[0], 2)
+			+ pow(((triangle*)el->itFigure)->third[1] - ((triangle*)el->itFigure)->second[1], 2)));
+		return firstShade + secondShade + thirdShade;
+	}
+	default:
+		break;
+	}
+	return -1;
+}
+
+int equ(element* first, element* second)
+{
+	if (perimetr(first) > perimetr(second))
+		return 1;
+	else if (perimetr(first) < perimetr(second))
+		return -1;
+	else
+		return 0;
+}
+
+list* sort(list* sortingList)
+{
+	list* newList = new list;
+	init(newList);
+	while (sortingList->size != 0)
+	{
+		element* min = sortingList->head;
+		element* cur = sortingList->head;
+		while (cur != nullptr)
+		{
+			if (equ(cur, min) == -1)
+				min = cur;
+			cur = cur->next;
+		}
+		if (min->prev != nullptr)
+			min->prev->next = min->next;
+		if (min->next != nullptr)
+			min->next->prev = min->prev;
+		if (min == sortingList->head)
+			sortingList->head = min->next;
+		if (min == sortingList->tail)
+			sortingList->tail = min->prev;
+		sortingList->size--;
+		pushBack(newList, min);
+	}
+	return newList;
 }

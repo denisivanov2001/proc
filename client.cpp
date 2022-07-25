@@ -17,6 +17,8 @@ int main()
 	writeRect(clientList, write);
 	write << "Circle:\n";
 	writeCir(clientList, write);
+	write << "Triangle:\n";
+	writeTri(clientList, write);
 	write << "Delete list:\n";
 	clear(clientList);
 	writeList(clientList, write);

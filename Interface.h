@@ -1,7 +1,17 @@
 #pragma once
 #include <string>
 #include <fstream>
-enum type{rect,cir};
+#include <corecrt_math_defines.h>
+enum type{rect,cir,tri};
+struct triangle
+{
+	type key;
+	int first[2];
+	int second[2];
+	int third[2];
+	std::string color;
+	double density;
+};
 struct rectangle
 {
 	type key;
@@ -48,11 +58,16 @@ void readList(list*& readList, std::ifstream& stream);
 int readElement(element*& readElement, std::ifstream& stream);
 rectangle* readRectangle(std::ifstream& stream);
 circle* readCircle(std::ifstream& stream);
-
+triangle* readTriangle(std::ifstream& stream);
 void writeList(list*& readList, std::ofstream& stream);
 void writeRect(list*& readList, std::ofstream& stream);
 void writeCir(list*& readList, std::ofstream& stream);
+void writeTri(list*& readList, std::ofstream& stream);
 
 void writeElement(element*& readElement, std::ofstream& stream);
 void writeRectangle(rectangle* rect, std::ofstream& stream);
 void writeCircle(circle* cir, std::ofstream& stream);
+void writeTriangle(triangle* tri, std::ofstream& stream);
+double perimetr(element* el);
+int equ(element* first, element* second);
+list* sort(list* sortingList);

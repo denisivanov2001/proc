@@ -1,5 +1,7 @@
 r 3 -9 8 5 Red 2.36
 c 9 6 78 Blue 8.69
+t 8 9 5 6 7 4 Red 8.26
 r 9 9 9 9 Yellow 9.58
 c 9 9 0 Green 0.3
+t 7 8 9 6 5 2 Green 4.26
 
