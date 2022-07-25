@@ -138,6 +138,7 @@ void writeElement(element*& writeElement, std::ofstream& stream)
 	default:
 		break;
 	}
+	stream << "Perimetr " << perimetr(writeElement)<<"\n";
 	return;
 }
 
@@ -154,4 +155,24 @@ void writeCircle(circle* cir, std::ofstream& stream)
 	stream << "Center: " << cir->center[0] << " " << cir->center[1] << "\n";
 	stream << "Radius " << cir->radius << "\n";
 	stream << "Color " << cir->color << "\n";
+}
+
+double perimetr(element* el)
+{
+	switch (el->itFigure->key)
+	{
+	case rect:
+	{
+		return (((rectangle*)el->itFigure)->leftUp[0] - ((rectangle*)el->itFigure)->rightDown[0]) *
+			(((rectangle*)el->itFigure)->rightDown[1] - ((rectangle*)el->itFigure)->leftUp[1]);
+		
+	}
+	case cir:
+	{
+		return 2.0 * M_PI * (double)((circle*)el->itFigure)->radius;
+	}
+	default:
+		break;
+	}
+	return -1;
 }
